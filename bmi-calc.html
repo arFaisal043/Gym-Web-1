@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>BMI Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, #203050, #0c0e10);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .bmi-calculator {
+            /* background: rgba(37, 20, 53, 0.1); */
+            background: rgba(97, 96, 96, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .bmi-calculator h1 {
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .bmi-calculator input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+
+        .bmi-calculator input::placeholder {
+            color: #ffffff;
+        }
+
+        .bmi-calculator button {
+            width: 100%;
+            padding: 10px;
+            background: #4ca1af;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .bmi-calculator button:hover {
+            background: #3b6978;
+        }
+
+        .bmi-calculator .result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .bmi-calculator .suggestion {
+            margin-top: 10px;
+            font-size: 1rem;
+            color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="bmi-calculator">
+        <h1>BMI Calculator</h1>
+        <input type="number" id="weight" placeholder="Enter your weight (kg)">
+        <input type="number" id="height" placeholder="Enter your height (m)">
+        <button id="calculate-btn">Calculate BMI</button>
+        <div class="result" id="result"></div>
+        <div class="suggestion" id="suggestion"></div>
+    </div>
+
+    <script>
+        const weightInput = document.getElementById('weight');
+        const heightInput = document.getElementById('height');
+        const calculateBtn = document.getElementById('calculate-btn');
+        const resultDiv = document.getElementById('result');
+        const suggestionDiv = document.getElementById('suggestion');
+
+        calculateBtn.addEventListener('click', () => {
+            const weight = parseFloat(weightInput.value);
+            const height = parseFloat(heightInput.value);
+
+            if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+                resultDiv.textContent = 'Please enter valid weight and height values.';
+                resultDiv.style.color = 'red';
+                suggestionDiv.textContent = '';
+                return;
+            }
+
+            const bmi = (weight / (height * height)).toFixed(2);
+            let category = '';
+            let suggestion = '';
+
+            if (bmi < 18.5) {
+                category = 'Underweight';
+                suggestion = 'You might need to gain some weight. Consider a balanced diet with more calories.';
+            } else if (bmi >= 18.5 && bmi < 24.9) {
+                category = 'Normal weight';
+                suggestion = 'Great job! Maintain your weight with a healthy lifestyle.';
+            } else if (bmi >= 25 && bmi < 29.9) {
+                category = 'Overweight';
+                suggestion = 'You might want to consider losing some weight. Focus on regular exercise and a healthy diet.';
+            } else {
+                category = 'Obesity';
+                suggestion = 'It is important to consult with a healthcare provider for personalized advice.';
+            }
+
+            resultDiv.textContent = `Your BMI is ${bmi} (${category}).`;
+            resultDiv.style.color = 'white';
+            suggestionDiv.textContent = suggestion;
+        });
+    </script>
+</body>
+</html>
